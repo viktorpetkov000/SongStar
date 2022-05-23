@@ -16,6 +16,12 @@ namespace SongStar {
 			InitializeComponent();
 		}
 
+		Main main;
+		public Login(Main f) {
+			InitializeComponent();
+			main = f;
+		}
+
 		private void button1_Click(object sender,EventArgs e) {
 			string username = textBox1.Text;
 			string password = textBox2.Text;
@@ -45,7 +51,8 @@ namespace SongStar {
 				hashedPass = BitConverter.ToString(bytes).Replace("-","").ToLower();
 				if (hashedPass == dbPass) {
 					conn.Close();
-					this.Close();
+					main.ChangeMain("Welcome " + username);
+					Close();
 				} else {
 					conn.Close();
 					label3.Text = "Incorrect username or password";

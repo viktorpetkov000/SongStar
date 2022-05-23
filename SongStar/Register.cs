@@ -16,6 +16,12 @@ namespace SongStar {
 			InitializeComponent();
 		}
 
+		Main main;
+		public Register(Main f) {
+			InitializeComponent();
+			main = f;
+		}
+
 		private void Register_Load(object sender,EventArgs e) {
 
 		}
@@ -59,6 +65,7 @@ namespace SongStar {
 			if (reader.Read()) {
 				conn.Close();
 				label4.Text = "This username already exists";
+				return;
 			}
 			conn.Close();
 			conn.Open();
@@ -67,11 +74,14 @@ namespace SongStar {
 			command = new SqlCommand(query,conn);
 			int result = command.ExecuteNonQuery();
 			if (result >= 0) {
+				main.ChangeMain("Welcome " + username);
 				conn.Close();
 				Close();
+				return;
 			}
 			conn.Close();
 			label4.Text = "Error";
+			return;
 		}
 	}
 }
